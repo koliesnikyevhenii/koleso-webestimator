@@ -1,6 +1,6 @@
 ---
 name: koleso-webestimator
-description: "Estimates web tasks on Umbraco / ASP.NET Core sites (Razor, Vue or Nuxt front ends, Bellissima or AngularJS back-office extensions, uSync, Examine, Hangfire, multilingual and RTL) when an AI coding agent writes the code and a developer reviews it. Looks for a spec (spec.md, docs/spec) or feature plan (docs/plans) first and, if found, reads it in full and estimates per plan phase; if not, says so and gives a quick estimate of the visible scope. Reads the codebase, sizes the coding at agent speed, then adds the work that does not get faster — deploys, uSync and dictionary steps per environment, real-CMS verification rounds, QA waves, client clarification — and keeps calendar wait separate from effort. Use when asked 'how long', 'estimate this', 'how many hours', 'what is the effort', 'size this ticket', 'can we do this by', 'give the client a number', 'break this down', 're-estimate after the answers', or when a ticket titled 'Estimation – …' is in front of you. Also supports batch estimation of a spec, epic or backlog and delta re-estimates after scope changes."
+description: "Estimates web tasks on Umbraco / ASP.NET Core sites (Razor, Vue or Nuxt front ends, Bellissima or AngularJS back-office extensions, uSync, Examine, Hangfire, multilingual and RTL) when an AI coding agent writes the code and a developer reviews it. Looks for a spec (spec.md, docs/spec) or feature plan (docs/plans) first and, if found, reads it in full and estimates per plan phase; if not, says so and gives a quick estimate of the visible scope. Reads the codebase, sizes the coding at agent speed, then adds the work that does not get faster — deploys, uSync and dictionary steps per environment, real-CMS verification rounds, QA waves, client clarification — and keeps calendar wait separate from effort. Use when asked 'how long', 'estimate this', 'how many hours', 'what is the effort', 'size this ticket', 'can we do this by', 'give the client a number', 'break this down', 're-estimate after the answers', or when a ticket titled 'Estimation – …' is in front of you. Also supports batch estimation of a spec, epic or backlog, delta re-estimates after scope changes, and reviewing an existing estimate ('review this estimate', 'check the estimate', 'is this estimate right', 'verify the numbers in the spec')."
 license: MIT
 compatibility: Needs read access to the target codebase. Works best with access to the ticket tracker (Jira/Confluence) for the spec.
 metadata:
@@ -31,6 +31,7 @@ Reference files (read when the step says so):
 - `references/honesty-rules.md` — mandatory rules and escalation thresholds
 - `references/output-format.md` — the internal breakdown and the client-facing reply
 - `references/calibration-log.md` — how to record estimate-vs-actual so the numbers improve
+- `references/review-checklist.md` — Review mode: checking an estimate that already exists
 
 ---
 
@@ -182,6 +183,15 @@ genuinely shared (one deploy + one uSync import can carry several items; one QA 
 **Re-estimate** — after the client answers questions or scope changes: show only the delta (removed lines,
 added lines, revised total, which question caused it). Clients answer the questions and then ask for the
 number to be confirmed — make the delta easy to approve.
+
+**Review** — when an estimate already exists (in a spec, a plan, a ticket comment) and you are asked to check
+it: do not re-estimate from scratch. Follow `references/review-checklist.md`:
+- collect every version: the committed document, the client-facing copy, the code it cites;
+- check the arithmetic, then whether basis and confidence match the honesty rules;
+- check the structure (review share, buckets, requirement coverage, options, defaults);
+- re-verify the key facts in code and schema, and look for the platform risks it misses.
+
+Separate internal fixes from changes the client must see. Recommend re-posting a number only if it changes.
 
 **Investigation** — for "find out why…" tickets: timebox it (typically 0.25–1 h), state what the timebox
 buys, and list the likely outcomes, including "not a bug", "already built in" and "upstream CMS bug — wait for

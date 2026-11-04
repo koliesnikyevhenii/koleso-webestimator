@@ -38,7 +38,30 @@ Neither error was in the code. Both were in the work around it. This skill makes
 7. Writes an internal breakdown and a reply ready to post for the client: hour ranges, options priced
    separately, and numbered questions that each state the default answer.
 
-Modes: single task, batch (spec / epic / backlog), delta re-estimate after answers, timeboxed investigation.
+Modes: single task, batch (spec / epic / backlog), delta re-estimate after answers, timeboxed investigation,
+and review of an existing estimate.
+
+## Reviewing an existing estimate
+
+The skill can also check an estimate it did not just write: one in a spec, a plan or a ticket comment, by
+you, a teammate or an earlier run. Ask *"review the estimate in the spec for TICKET-123"* or *"check these
+numbers"*.
+
+It does not re-estimate from scratch. It works through `references/review-checklist.md`:
+
+1. **Versions.** It reads the committed document, the client-facing copy (e.g. the ticket comment) and the
+   code the estimate cites, and says whether they still agree.
+2. **Arithmetic.** It checks that subtotals and totals add up, and that rounding goes outward.
+3. **Basis and confidence.** It checks that the confidence level matches the open questions, the unchecked
+   data changes and the stated risks.
+4. **Structure.** It checks the review share, the work that doesn't get faster, requirement coverage,
+   separately priced options and the default answers.
+5. **Facts and risks.** It re-verifies key facts in the code and schema, and lists the platform risks the
+   estimate misses.
+
+The output is a verdict: *holds*, *holds with internal fixes*, or *needs a revised client number*. Internal
+fixes are kept apart from changes the client must see. It never suggests re-posting a number that has not
+changed. If you let it fix the document, it adds a dated revision entry explaining what changed.
 
 ## Plan-based vs quick estimates
 
@@ -93,6 +116,7 @@ directly with `/koleso-webestimator <task>`.
 | `references/honesty-rules.md` | Mandatory rules, confidence levels and escalation |
 | `references/output-format.md` | Internal breakdown, client reply, delta and batch formats |
 | `references/calibration-log.md` | How to record estimate vs actual and recalibrate |
+| `references/review-checklist.md` | Review mode: how to check an existing estimate |
 
 ## Calibrate it to yourself
 
