@@ -40,6 +40,25 @@ Neither error was in the code. Both were in the work around it. This skill makes
 
 Modes: single task, batch (spec / epic / backlog), delta re-estimate after answers, timeboxed investigation.
 
+## Plan-based vs quick estimates
+
+How precise the estimate is depends on what the skill can read. Before looking at code it searches for
+planning documents, then states the basis it used on the first line of the output.
+
+**Where it looks:** `spec.md` / `SPEC.md`, `docs/spec/`, `docs/specs/`, `docs/plans/` (`*-plan.md`,
+`*-design.md`, `*-analysis.md`, `*-spec*.md`), `docs/handover/`, `docs/adr/`, files named after the ticket
+key or feature slug, and the ticket itself: description, comments and linked spec pages such as Confluence.
+
+| Basis | When | What you get |
+|---|---|---|
+| **Plan-based** | A spec and/or feature plan exists | Every document read in full. Priced per plan phase, using the plan's file lists as the breakdown. Every requirement mapped to an estimate line, with gaps flagged. The plan's open questions carried over with defaults. A staleness check of the plan against the current code. Narrower ranges, higher confidence. |
+| **Quick** | Nothing found | Opens with *"No spec or feature plan found — this is a quick estimate of the visible scope"* and lists where it looked. Confidence capped at Medium, at least ±40% spread. Lists what a plan would have to settle, and the direction the number is likely to move once one exists. The client reply says the figure is preliminary. |
+| **Mixed** | A document covers only part of the task | Each line labelled plan-based or quick. |
+
+**Tip:** for the most accurate number, put the spec or a feature plan in `docs/spec/` or `docs/plans/` (or
+link it from the ticket) before asking for the estimate. A common flow: run a quick estimate to decide whether
+the ticket is worth planning, then write the plan and re-estimate from it.
+
 ## Install
 
 Claude Code, personal:
