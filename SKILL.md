@@ -1,6 +1,6 @@
 ---
 name: koleso-webestimator
-description: "Estimates web tasks on Umbraco / ASP.NET Core sites (Razor, Vue or Nuxt front ends, Bellissima or AngularJS back-office extensions, uSync, Examine, Hangfire, multilingual and RTL) when an AI coding agent writes the code and a developer reviews it. Looks for a spec (spec.md, docs/spec) or feature plan (docs/plans) first and, if found, reads it in full and estimates per plan phase; if not, says so and gives a quick estimate of the visible scope. Reads the codebase, sizes the coding at agent speed, then adds the work that does not get faster — deploys, uSync and dictionary steps per environment, real-CMS verification rounds, QA waves, client clarification — and keeps calendar wait separate from effort. Use when asked 'how long', 'estimate this', 'how many hours', 'what is the effort', 'size this ticket', 'can we do this by', 'give the client a number', 'break this down', 're-estimate after the answers', or when a ticket titled 'Estimation – …' is in front of you. Also supports batch estimation of a spec, epic or backlog, delta re-estimates after scope changes, and reviewing an existing estimate ('review this estimate', 'check the estimate', 'is this estimate right', 'verify the numbers in the spec')."
+description: "Estimates web tasks on Umbraco / ASP.NET Core sites (Razor, Vue or Nuxt front ends, Bellissima or AngularJS back-office extensions, uSync, Examine, Hangfire, multilingual and RTL) when an AI coding agent writes the code and a developer reviews it. Looks for a spec (spec.md, docs/spec) or feature plan (docs/plans) first and, if found, reads it in full and estimates per plan phase; if not, says so and gives a quick estimate of the visible scope. Reads the codebase, sizes the coding at agent speed, then adds the work that does not get faster — deploys, uSync and dictionary steps per environment, real-CMS verification rounds, QA waves, client clarification — and keeps calendar wait separate from effort. Use when asked 'how long', 'estimate this', 'how many hours', 'what is the effort', 'size this ticket', 'can we do this by', 'give the client a number', 'break this down', 're-estimate after the answers', or when a ticket titled 'Estimation – …' is in front of you. Also supports batch estimation of a spec, epic or backlog, delta re-estimates after scope changes, and reviewing an existing estimate ('review this estimate', 'check the estimate', 'is this estimate right', 'verify the numbers in the spec'), and calibrating the skill against a log of actuals ('calibrate the estimates', 'how accurate were we', 'estimation retrospective')."
 license: MIT
 compatibility: Needs read access to the target codebase. Works best with access to the ticket tracker (Jira/Confluence) for the spec.
 metadata:
@@ -167,7 +167,9 @@ Use `references/output-format.md`: an **internal breakdown** for the developer, 
 (table of hour ranges, total range, separately priced options, assumptions, numbered questions each with the
 default answer the estimate assumes, risks, calendar note).
 
-Offer to add an entry to the calibration log so the actual can be recorded later.
+Then record the estimate in the calibration log (`references/calibration-log.md`): automatically if the
+user's instructions name a log location, otherwise offer to start one. Log what the skill produced and,
+once known, what was actually sent to the client.
 
 ---
 
@@ -192,6 +194,20 @@ it: do not re-estimate from scratch. Follow `references/review-checklist.md`:
 - re-verify the key facts in code and schema, and look for the platform risks it misses.
 
 Separate internal fixes from changes the client must see. Recommend re-posting a number only if it changes.
+
+**Calibrate** — when asked to evaluate how the estimates went ("how accurate were we", "calibrate the skill",
+"retrospective on the estimates"), or at the end of a trial period:
+1. Read the whole calibration log. For each closed entry, fill or check the actual and its source (own time,
+   ticket worklog — note if it is a team total —, git active days); ask for missing actuals instead of
+   guessing.
+2. Compute ratios per work type and per bucket, for the number sent to the client and for the skill's number.
+3. Find the systematic misses: which work types, which buckets (QA wave, ship overhead, verification rounds,
+   clarification), which rules (confidence, small-ticket floor) were wrong, and where the human's overrides
+   were right.
+4. Propose concrete edits to `references/calibration.md`, `patterns.md`, `platform-risks.md` or the rules,
+   each tied to the log rows that justify it. Under ~3 data points for a type: note, do not change.
+5. Apply only the edits the user approves, add a dated changelog entry to the skill's README, and add a line
+   to the log saying which calibration the next estimates use.
 
 **Investigation** — for "find out why…" tickets: timebox it (typically 0.25–1 h), state what the timebox
 buys, and list the likely outcomes, including "not a bug", "already built in" and "upstream CMS bug — wait for

@@ -39,7 +39,7 @@ Neither error was in the code. Both were in the work around it. This skill makes
    separately, and numbered questions that each state the default answer.
 
 Modes: single task, batch (spec / epic / backlog), delta re-estimate after answers, timeboxed investigation,
-and review of an existing estimate.
+review of an existing estimate, and calibration against actuals.
 
 ## Reviewing an existing estimate
 
@@ -120,9 +120,27 @@ directly with `/koleso-webestimator <task>`.
 
 ## Calibrate it to yourself
 
-The rates are starting points from one team's history. Keep the calibration log
-(`references/calibration-log.md`). After ~10 finished tickets of a work type, adjust that row. If your
-misses come from one bucket, such as QA waves, adjust the bucket, not the coding rates.
+The rates are starting points from one team's history. They get better as you use the skill:
+
+1. **Log every estimate.** Name a log location in your `CLAUDE.md` or agent memory, for example
+   `Estimation log: ~/notes/estimation-log.md`, and the skill appends a row after every estimate, re-estimate
+   and review. Each row records the number sent to the client, the skill's number and, later, the actual.
+2. **Fill in the actuals** when tickets close, and say where each number came from: your own time, the
+   ticket's worklog, or git activity.
+3. **Run Calibrate mode** every ~10 closed tickets, or at the end of a trial period. Ask *"calibrate the
+   estimation skill against the log"*. It computes actual ÷ estimate per work type and per bucket, finds the
+   systematic misses (including where your overrides beat the skill), and proposes edits to the rates and
+   rules. Each edit is tied to the log rows that justify it. Nothing changes without your approval, and every
+   applied change gets a changelog entry below.
+
+If your misses come from one bucket, such as QA waves, adjust that bucket, not the coding rates. Fewer than
+about 3 data points for a work type is an anecdote, not a calibration.
+
+## Changelog
+
+| Date | Change | Based on |
+|---|---|---|
+| 2026-11-04 | v1.0.0: initial calibration | ~300 tickets across 10 Umbraco projects (see `references/calibration.md`) |
 
 ## Credits
 
