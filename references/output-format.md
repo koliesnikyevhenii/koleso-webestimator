@@ -10,6 +10,7 @@ ticket. Keep the client reply free of internal tooling names (agents, prompts, m
 ```
 ## Estimate: [task]
 
+**Basis:** Plan-based — [documents read] / Quick estimate — no spec or plan found (looked in: …) / Mixed
 **Effort:** X–Y h   **Calendar:** [e.g. "1–2 weeks, gated on Q1–Q3"]   **Size:** [S/M/L/XL]
 **Confidence:** High / Medium / Low — [one sentence on what drives it]
 **Stack:** [Umbraco version, .NET, front end, back office tech, cultures, environments]
@@ -30,6 +31,16 @@ ticket. Keep the client reply free of internal tooling names (agents, prompts, m
 | QA wave | ... | ... |
 | Multilingual / RTL matrix | ... | ... |
 | Skipped on purpose | — | [bucket: reason] |
+
+### Spec / plan coverage (plan-based only)
+| Requirement / criterion | Covered by | Estimate line |
+|---|---|---|
+| ... | Phase 2 | 2.1, 2.3 |
+| [not covered by any phase] | — | flagged |
+
+### What would firm this up (quick estimate only)
+- [questions a spec/plan must settle; areas not pinned down]
+- Next step: write a feature plan, then re-estimate from it. Expected direction: [up/down, why]
 
 ### Calendar dependencies
 - [what elapsed time waits on]
@@ -52,6 +63,8 @@ Short, in hours, ranges throughout, questions answerable one by one.
 
 ```
 Estimate for [task]: **X–Y hours**.
+[Quick estimate only:] This is a preliminary estimate of the visible scope; it will be refined once the
+detailed specification / implementation plan is ready.
 
 | # | Item | Hours |
 |---|---|---|

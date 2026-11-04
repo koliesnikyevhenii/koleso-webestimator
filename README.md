@@ -24,7 +24,9 @@ Neither error was in the code. Both were in the work around it. This skill makes
 
 ## What it does
 
-1. Looks for prior plans and estimates for the task, and reads the spec.
+1. Looks for a spec (`spec.md`, `docs/spec/`) and a feature plan (`docs/plans/`). If they exist, it reads them in
+   full and estimates per plan phase, mapping every requirement to a line. If not, it says so and gives a
+   quick estimate of the visible scope, with wider ranges and a suggestion to plan first.
 2. Detects the stack: Umbraco version, back-office technology (AngularJS or Bellissima), front end, uSync
    settings, cultures, tests and environments.
 3. Reads the closest existing code, and **verifies factual claims** before making them.

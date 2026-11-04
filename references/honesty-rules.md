@@ -38,6 +38,10 @@ Read before writing any number. These are not optional.
 
 11. **Name the top risk** in one sentence: the single thing most likely to move the number.
 
+12. **State the basis.** Every estimate says whether it is plan-based (a spec and/or feature plan was read in
+    full), a quick estimate of the visible scope (none was found — say where you looked), or mixed. Never
+    present a quick estimate as if a plan stood behind it.
+
 ## Confidence
 
 | Level | When |
@@ -47,7 +51,11 @@ Read before writing any number. These are not optional.
 | Low | Codebase not read, vague spec, client files to import, third-party verification only on the real domain |
 
 Modifiers: prior art found +1; codebase not read −1; vague spec −1; code writes culture-variant or block data
-−1; depends on client-supplied content −1; similar task recorded in the calibration log with a known actual +1.
+−1; depends on client-supplied content −1; similar task recorded in the calibration log with a known actual +1;
+spec and feature plan read in full and still matching the code +1.
+
+**Quick estimates (no spec, no plan) are capped at Medium**, whatever the other modifiers say, and use at
+least the Medium spread (±40%).
 Confidence never goes above High or below Low; if several −1s stack below Low, say **"Reliability: very
 low — clarify before committing"**.
 

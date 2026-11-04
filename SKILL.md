@@ -36,15 +36,43 @@ Reference files (read when the step says so):
 
 ## Workflow
 
-### Step 0 — Find what already exists about this task
+### Step 0 — Find the spec and plan, and decide the estimate basis
 
-Before reading code:
-- Look for prior analyses, plans or estimates for the ticket (e.g. `docs/plans/`, `docs/spec/`, the ticket's
-  comments, a linked Confluence page). A previous estimate, a rejected option or an open question changes the
-  number.
-- Read the spec itself (ticket description or linked page). Count requirements; list anything ambiguous.
-- If a calibration log exists (`references/calibration-log.md` explains where), read the last entries for
-  similar work types.
+Before reading code, search for planning documents about this task. Look in:
+- the repository: `spec.md`, `SPEC.md`, `docs/spec/**`, `docs/specs/**`, `docs/plans/**` (files named
+  `*-plan.md`, `*-design.md`, `*-analysis.md`, `*-spec*.md`), `docs/handover/**`, `docs/adr/**`, and any file
+  whose name contains the ticket key or the feature's slug;
+- the ticket: its description, attachments and comments, and any spec page linked from it (e.g. Confluence);
+- earlier estimates for the same ticket. A previous estimate, a rejected option or an open question changes
+  the number.
+
+Then pick **one basis** for the estimate and say which it is at the top of the output:
+
+**A. Plan-based estimate.** A spec and/or a feature plan exists.
+- Read every document found **in full**, not just the headings: requirements, acceptance criteria, phases,
+  file lists, open questions, revisions/deviations and review decisions.
+- Estimate **per plan phase**, using the plan's own file lists and steps as the sub-task skeleton (Step 4).
+- Map each spec requirement / acceptance criterion to a line of the estimate. List any requirement no
+  phase covers, and any phase no requirement asks for.
+- Carry the plan's open questions into the output's question list, each with its default answer.
+- Check whether the plan is stale: compare what it names (files, aliases, doctypes) with the current code.
+  Lines that no longer match are an assumption to flag, not something to price silently.
+- Ranges can be narrower and confidence higher (see `references/honesty-rules.md`).
+
+**B. Quick estimate (visible scope).** No spec and no plan were found.
+- Say so plainly at the top: **"No spec or feature plan found — this is a quick estimate of the visible
+  scope."** List where you looked.
+- Estimate from the ticket text and the code only. Ranges are wider and confidence is capped at Medium.
+- List what a spec or plan would have to settle for the number to firm up (the questions, the affected
+  areas you could not pin down).
+- Offer the next step: write a plan for the ticket, then re-estimate from it (basis A). Say in which
+  direction you expect the plan-based number to move, and why.
+
+If only a partial document exists (e.g. a spec but no plan, or a plan for a different phase), use basis A for
+what it covers and basis B for the rest, and label each line.
+
+Also: if a calibration log exists (`references/calibration-log.md` explains where), read the last entries for
+similar work types.
 
 ### Step 1 — Detect the stack
 
@@ -87,6 +115,9 @@ content-type configs. A wrong claim costs a full client round trip.
 
 ### Step 4 — Decompose and size the coding at agent speed
 
+With a plan (basis A), the plan's phases are the top-level groups and its steps/file lists are the
+sub-tasks; do not invent a different breakdown. Without a plan (basis B), build the breakdown yourself.
+
 Break the work into sub-tasks of **15 min – 2 h of agent work each**. Size them from
 `references/patterns.md` and the rates in `references/calibration.md`. Then add **review time**
 (default 30–50% of agent coding for production code; less for tests and styles).
@@ -126,6 +157,8 @@ realistically 1–2 weeks elapsed while Q1–Q4 are answered").
 5. Every "does not exist" / "already supported" claim was verified in code or schema.
 6. Confidence is consistent with the modifiers in `honesty-rules.md`.
 7. Total > 40 h → split into milestones and estimate each.
+8. The basis (plan-based / quick / mixed) is stated at the top. With a plan, every spec requirement maps to
+   a line and every plan phase is priced. Without one, the output says so and lists where you looked.
 
 ### Step 8 — Output
 
